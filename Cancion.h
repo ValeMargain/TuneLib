@@ -4,69 +4,80 @@
 #include <string>
 #include <iostream>
 
+/*
+  Clase: Cancion
+  Representa una cancion dentro del sistema.
+  Contiene los datos esenciales (titulo, artista, album y duracion)
+  y metodos para su acceso, modificacion y visualizacion.
+
+  Cumple un rol principal dentro de la biblioteca musical, ya que
+  cada nodo de la lista almacena un objeto de este tipo.
+*/
 class Cancion {
 private:
-    std::string titulo;
-    std::string artista;
-    std::string album;
-    int duracion; // en segundos
+    std::string titulo;   
+    std::string artista;  
+    std::string album;   
+    int duracion;         // Duración en segundos
 
 public:
-    Cancion();
-    Cancion(const std::string& t, const std::string& a,
-            const std::string& al, int d);
+    
+    //Constructor por defecto
+     
+    Cancion() : titulo(""), artista(""), album(""), duracion(0) {}
 
-    std::string getTitulo() const;
-    std::string getArtista() const;
-    std::string getAlbum() const;
-    int getDuracion() const;
+    
+    //Constructor parametrizado
+    Cancion(const std::string& t, const std::string& a, const std::string& al, int d)
+        : titulo(t), artista(a), album(al), duracion(d) {}
 
-    void setTitulo(const std::string& t);
-    void setArtista(const std::string& a);
-    void setAlbum(const std::string& al);
-    void setDuracion(int d);
+    //Getters
+    std::string getTitulo() const { 
+        return titulo; 
+    }
+    std::string getArtista() const { 
+        return artista; 
+    }
+    std::string getAlbum() const { 
+        return album; 
+    }
+    int getDuracion() const { 
+        return duracion; 
+    }
 
-    void mostrar() const;
+    //Setters
+
+    void setTitulo(const std::string& t) { 
+        titulo = t; 
+    }
+    void setArtista(const std::string& a) { 
+        artista = a; 
+    }
+    void setAlbum(const std::string& al) { 
+        album = al; 
+    }
+    void setDuracion(int d) { 
+        duracion = d; 
+    }
+
+    /*
+      Metodo: mostrar()
+      Imprime la informacion de la cancion
+    */
+    void mostrar() const {
+        std::cout << titulo << " - " << artista << " - " 
+                  << album << " - " << duracion << "s\n";
+    }
+
+    /*
+      Sobrecarga del operador <=
+      Permite comparar canciones por titulo, lo que facilita
+      el ordenamiento en algoritmos como Merge Sort.
+      Complejidad: O(1)
+    */
+    bool operator<=(const Cancion& other) const {
+        return titulo <= other.titulo;
+    }
 };
 
-Cancion::Cancion() : titulo(""), artista(""), album(""), duracion(0) {}
-
-Cancion::Cancion(const std::string& t, const std::string& a,
-                 const std::string& al, int d)
-    : titulo(t), artista(a), album(al), duracion(d) {}
-
-// Getters 
-std::string Cancion::getTitulo() const { 
-    return titulo; 
-}
-std::string Cancion::getArtista() const { 
-    return artista; 
-}
-std::string Cancion::getAlbum() const { 
-    return album; 
-}
-int Cancion::getDuracion() const { 
-    return duracion; 
-}
-
-// Setters
-void Cancion::setTitulo(const std::string& t) { 
-    titulo = t; 
-}
-void Cancion::setArtista(const std::string& a) { 
-    artista = a; 
-}
-void Cancion::setAlbum(const std::string& al) { 
-    album = al; 
-}
-void Cancion::setDuracion(int d) { 
-    duracion = d; 
-}
-
-// Metodo para mostrar una cancion
-void Cancion::mostrar() const {
-    std::cout << titulo << " - " << artista
-              << " - " << album << " - "
-              << duracion << "s\n";
-}
 #endif

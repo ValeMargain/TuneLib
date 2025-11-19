@@ -1,44 +1,77 @@
 # TuneLib
-Este proyecto es una biblioteca musical que permite registrar, consultar, editar y organizar canciones. Se basa en la siguiente lógica de uso:
+Este proyecto permite registrar, editar, eliminar y consultar canciones en una biblioteca, así como ordenarlas por título, artista, álbum o duración. Los datos se guardan en un archivo TXT para persistencia entre ejecuciones y se pueden crear listas de reproducción basadas en títulos específicos.
 
-**Ejemplo de uso de TuneLib:**
+***SICT0302B: Toma decisiones
+**Selecciona y usa una estructura lineal adecuada al problema
+Se utiliza un vector para guardar todas las canciones registradas en el orden de carga.Esto permite recorrer la lista, copiarla y ordenarla fácilmente. Se puede acceder a canciones por índice y recorrerla completamente para mostrar o buscar canciones.
 
-1. Registrar canciones: Permite agregar nuevas canciones indicando su título, artista, álbum y duración. Cada canción se guarda automáticamente en la biblioteca para futuras consultas.
+**Selecciona un algoritmo de ordenamiento adecuado al problema
+Se utiliza Merge Sort para ordenar canciones por artista, álbum o duración. Se eligió Merge Sort porque es eficiente y estable, con complejidad garantizada de:
+* Mejor caso: O(n log n)
+* Caso promedio: O(n log n)
+* Peor caso: O(n log n) 
+**Usa un árbol adecuado para resolver un problema
+Se utiliza un AVL para mantener canciones ordenadas por título. Esto permite inserciones, eliminaciones y búsquedas en tiempo logarítmico, evitando degeneración del árbol. Complejidades del AVL:
+* Inserción:
+    * Mejor caso: O(log n)
+    * Caso promedio: O(log n)
+    * Peor caso: O(log n) (siempre balanceado) 
+* Eliminación:
+    * Mejor caso: O(log n)
+    * Caso promedio: O(log n)
+    * Peor caso: O(log n) 
+* Búsqueda:
+    * Mejor caso: O(1) (si el nodo buscado es la raíz)
+    * Caso promedio: O(log n)
+    * Peor caso: O(log n)
 
-2. Consultar una canción específica: Permite buscar una canción por su título para ver todos sus detalles, incluyendo artista, álbum y duración.
+El recorrido inorder del AVL se utiliza para mostrar canciones ordenadas por título en O(n).
 
-3. Editar información de una canción existente: Permite actualizar los datos de una canción previamente registrada, como corregir el título, cambiar el artista o ajustar la duración.
+***SICT0301B: Evalúa los componentes
+**Presenta casos de prueba correctos y completos para todas las funciones y procedimientos del programa
+El programa incluye un menú interactivo que permite probar el funcionamiento de cada método de manera directa. Dentro de cada opción del menú se realizan validaciones básicas para garantizar que no se ingresen datos incorrectos o inconsistentes.
+Los casos de prueba incluyen:
+* Acceso, inserción y eliminación en el vector de canciones (registros)
+* Ordenamiento por Merge Sort de título, artista, álbum y duración
+* Búsqueda, inserción y eliminación en el AVL por título
+* Exportación de listas a archivo TXT y lectura de canciones desde archivos 
+Esto asegura que todas las funcionalidades del programa se puedan verificar en ejecución real, validando entradas y evitando errores de ejecución.
 
-4. Mostrar todas las canciones disponibles: Muestra en pantalla la lista completa de canciones registradas en la biblioteca con todos sus detalles.
+**Análisis de complejidad de los componentes
+Vector (registros)
+* Acceso por índice: O(1)
+* Búsqueda secuencial por valor: O(n)
+* Inserción al final: O(1) amortizado
+* Eliminación por búsqueda: O(n) 
+Merge Sort (para artista, álbum, duración)
+* Mejor caso: O(n log n)
+* Caso promedio: O(n log n)
+* Peor caso: O(n log n) 
+AVL (para título)
+* Inserción: O(log n)
+* Eliminación: O(log n)
+* Búsqueda: O(log n)
+* Recorrido inorder: O(n) 
+Otras funciones importantes
+* Crear lista de reproducción: O(m * n), donde m es el número de títulos a incluir y n el total de canciones
+* Exportar TXT: O(n)
+* Mostrar extremos de duración: O(n)
+* Buscar por álbum: O(n) 
+**Complejidad final del programa
+* Las operaciones dominantes son Merge Sort y recorrido del AVL por lo que la complejidad combinada promedio y peor caso del programa es O(n log n) 
 
-5. Ordenar canciones por título: Organiza la lista de canciones alfabéticamente según el título de cada canción para facilitar la búsqueda.
+***SICT0303B: Implementa acciones científicas
+**Implementa mecanismos para consultar información de las estructuras correctamente
 
-6. Ordenar canciones por duración: Permite organizar las canciones de acuerdo con su duración, ya sea de la más corta a la más larga o viceversa.
+* Buscar canción por título: AVL, O(log n)
+* Buscar canción por álbum: vector, O(n)
+* Mostrar canciones ordenadas por título: recorrido inorder del AVL, O(n)
+* Ordenar por artista, álbum o duración: Merge Sort, O(n log n)
 
-7. Buscar canciones por álbum: Permite localizar todas las canciones que pertenecen a un mismo álbum, mostrando rápidamente la colección completa de un artista o disco.
+**Implementa mecanismos de lectura de archivos
+* Las canciones se cargan desde un archivo TXT al iniciar el programa
+* Se valida que cada línea tenga todos los campos y que la duración sea numérica 
+**Implementa mecanismos de escritura de archivos
+* Cambios como agregar, eliminar o editar canciones se guardan inmediatamente en el TXT
+* Se pueden exportar archivos TXT o crear listas de reproducción en archivos separados 
 
-8. Crear listas de reproducción personalizadas: Permite generar listas de canciones seleccionadas por el usuario, para escucharlas o gestionarlas como una colección independiente.
-
-9. Mostrar la canción más larga y la más corta: Identifica y muestra las canciones con mayor y menor duración dentro de la biblioteca, facilitando comparaciones o selección de canciones según tiempo disponible.
-
-10. Exportar la biblioteca a un archivo CSV: Permite guardar todas las canciones en un archivo CSV para consultarlas o usarlas en otras aplicaciones.
-
-11. Generar canciones de prueba automáticamente: Si al iniciar el programa no se encuentra el archivo de la biblioteca, el sistema crea 50 canciones de ejemplo con títulos, artistas y álbumes ficticios, para que la aplicación funcione inmediatamente y se puedan probar todas las funcionalidades.
-
-**Selección y uso de la estructura de datos**
-
-Se utiliza un vector de objetos Cancion para registrar las canciones porque necesito:
-
-Acceso rápido a cualquier canción por su posición.
-
-Poder recorrer toda la lista para mostrar o buscar canciones.
-
-Cada canción es un objeto que contiene: título, artista, álbum y duración en segundos. Los elementos se pueden insertar, eliminar o editar usando las funciones agregarCancion, eliminarCancion y editarCancion, que se encuentran en el archivo Biblioteca.h en las líneas 175, 180 y 190 respectivamente.
-
-**Selección de algoritmo de ordenamiento**
-
-Para este problema se utiliza un algoritmo de tipo Merge Sort para organizar las canciones por título en orden alfabético ascendente.
-
-Elegí Merge Sort porque es rápido en la mayoría de los casos y estable, y porque es poco probable encontrarme con su peor caso, ya que la lista inicial de canciones siempre se carga desordenada.
-
-La función donde se puede ver el uso del Merge Sort es ordenarPorTitulo, ubicada en Biblioteca.h líneas 217-224.

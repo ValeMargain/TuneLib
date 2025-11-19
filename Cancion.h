@@ -9,9 +9,6 @@
   Representa una cancion dentro del sistema.
   Contiene los datos esenciales (titulo, artista, album y duracion)
   y metodos para su acceso, modificacion y visualizacion.
-
-  Cumple un rol principal dentro de la biblioteca musical, ya que
-  cada nodo de la lista almacena un objeto de este tipo.
 */
 class Cancion {
 private:
@@ -21,12 +18,9 @@ private:
     int duracion;         // Duración en segundos
 
 public:
-    
     //Constructor por defecto
-     
     Cancion() : titulo(""), artista(""), album(""), duracion(0) {}
 
-    
     //Constructor parametrizado
     Cancion(const std::string& t, const std::string& a, const std::string& al, int d)
         : titulo(t), artista(a), album(al), duracion(d) {}
@@ -46,7 +40,6 @@ public:
     }
 
     //Setters
-
     void setTitulo(const std::string& t) { 
         titulo = t; 
     }
@@ -80,4 +73,4 @@ public:
     }
 };
 
-#endif
+#endif // CANCION_H
